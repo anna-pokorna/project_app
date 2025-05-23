@@ -56,7 +56,8 @@ st.title("Nákupní seznam podle receptů")
 st.sidebar.header("Nastavení")
 
 recepty_list = df_recepty["recept_nazev"].unique().tolist()
-vybrane_recepty = st.sidebar.multiselect("Vyber recepty", recepty_list)
+vybrane_recepty = st.multiselect("Vyber recepty", recepty_list)
+#st.session_state.vybrane_recepty = vybrane_recepty
 pocet_porci = st.sidebar.slider("Vyber počet porcí:", 1, 10, 4)
 #zobrazeni = st.radio("Způsob výpočtu cen:", ["Cena za balení", "Cena za recept"])
 
@@ -80,6 +81,10 @@ if vybrane_recepty:
     k_nakupu = [s for s in suroviny if s not in nepotrebuju]
 
     zobrazeni = st.sidebar.radio("Způsob výpočtu cen:", ["Cena za balení", "Cena za recept"])
+
+    
+
+    
 
     if k_nakupu:
         st.subheader("Nákupní seznam")
@@ -114,7 +119,9 @@ if vybrane_recepty:
                             cena = row["Jednotková cena"] * mnozstvi
                             kosik_total += cena
                             st.markdown(f"- [{row['Produkt']}]({row['URL']})\n  {cena:.2f} Kč")
-            st.markdown(f"**Celkem: {kosik_total:.2f} Kč**")
+            st.markdown(f"**Celkem za {'celý nákup' if zobrazeni == 'Cena za balení' else 'množství dle receptu'}: {kosik_total:.2f} Kč**")
+            if zobrazeni == 'Cena za balení':
+                st.session_state.kosik_total = kosik_total
 
         with col2:
             st.header("Rohlík")
@@ -139,7 +146,16 @@ if vybrane_recepty:
                             cena = row["Jednotková cena"] * mnozstvi
                             rohlik_total += cena
                             st.markdown(f"- [{row['Produkt']}]({row['URL']})\n  {cena:.2f} Kč")
-            st.markdown(f"**Celkem: {rohlik_total:.2f} Kč**")
+            st.markdown(f"**Celkem za {'celý nákup' if zobrazeni == 'Cena za balení' else 'množství dle receptu'}: {rohlik_total:.2f} Kč**")
+            if zobrazeni == 'Cena za balení':
+                st.session_state.rohlik_total = rohlik_total
+
+        if st.button("Chci optimalizovat nákup."):
+            st.session_state.vybrane_recepty = vybrane_recepty
+            st.session_state.pocet_porci = pocet_porci
+            st.session_state.nepotrebuju = nepotrebuju
+            st.switch_page("pages/Optimalizace nákupu.py")
+    
     else:
         st.info("Vyber suroviny, které nemáš doma, abychom ti mohli vytvořit nákupní seznam.")
 else:
