@@ -290,13 +290,13 @@ if vybrane_recepty:
         st.markdown(spojene.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 
-        if st.button("Chci optimalizovat nákup"):
+        if st.sidebar.button("Chci optimalizovat nákup"):
             st.session_state.vybrane_recepty = vybrane_recepty
             st.session_state.pocet_porci = pocet_porci
             st.session_state.nepotrebuju = nepotrebuju
             #st.switch_page("pages/Optimalizace nákupu.py")
 
-            st.subheader(":material/shopping_bag: Optimalizace nákupu")
+            st.header("Optimalizace nákupu")
 
             # --- DOPLŇUJÍCÍ NASTAVENÍ ---
             # rohlik_xtra = st.sidebar.checkbox("**Mám členství Rohlík Xtra** (doprava zdarma, 4x měsíčně bez minima)")
@@ -403,7 +403,7 @@ if vybrane_recepty:
                     doprava_rohlik = 0 if rohlik_xtra else next(v for k, v in ROHLIK_SHIPPING if real_rohlik_total >= k)
                     doprava_kosik = 0 if kosik_novy else next(v for k, v in KOSIK_SHIPPING if real_kosik_total >= k)
 
-                    st.subheader("Rozdělený nákup")
+                    st.subheader(":material/shopping_bag: Rozdělený nákup")
 
                     col1, col2 = st.columns(2)
                     with col1:
