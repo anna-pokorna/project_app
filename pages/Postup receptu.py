@@ -9,6 +9,8 @@ st.set_page_config(
     layout="wide"
 )
 
+st.logo("data/banner.png")
+
 st.markdown("""
     <style>
         div.stButton > button:first-child {
@@ -16,6 +18,20 @@ st.markdown("""
             color: white;
             font-weight: bold;
             border-radius: 10px;
+        }
+        div.stButton > button:first-child:hover {
+            background-color: #4A5B4A;
+            color: white;
+        }
+
+        div.stButton > button:first-child:active {
+            background-color: #3B4A3B;
+            color: white;
+        }
+
+        div.stButton > button:first-child:focus {
+            background-color: #5C715E;
+            color: white;
         }
     </style>
 """, unsafe_allow_html=True)

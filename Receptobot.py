@@ -10,6 +10,8 @@ st.set_page_config(
     layout="wide"
 )
 
+st.logo("data/banner.png")
+
 try:
     from dotenv import load_dotenv
     load_dotenv()
@@ -42,7 +44,7 @@ if st.sidebar.button(":material/delete: Nová konverzace"):
     st.session_state.presun_na_recept = False
     st.rerun()
 
-jdemenato = "jdeme na to"
+jdemenato = "jdeme na to!"
 
 # Vložení vlastního CSS pro barvy + zarovnání
 st.markdown("""
@@ -68,12 +70,39 @@ st.markdown("""
             font-weight: bold;
             border-radius: 10px;
     }
+    div.stButton > button:first-child {
+    background-color: #5C715E;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    }
+
+    div.stButton > button:first-child:hover {
+        background-color: #4A5B4A;
+        color: white;
+    }
+
+    div.stButton > button:first-child:active {
+        background-color: #3B4A3B;
+        color: white;
+    }
+
+    div.stButton > button:first-child:focus {
+        background-color: #5C715E;
+        color: white;
+    }
     </style>
 """, unsafe_allow_html=True)
 
 
-st.title("Receptobot")
-st.subheader("_Recept na každou náladu_")
+#st.title("Receptobot")
+col1, col2 = st.columns([0.08, 0.92])
+with col1:
+    st.image("data/receptobot.png")
+with col2:
+    st.title("Receptobot")
+
+st.subheader("_Recept na každou náladu i problém_")
 
 # Inicializace při prvním načtení
 if "messages" not in st.session_state:
@@ -110,7 +139,7 @@ if user_input:
         "role": "system",
         "content": (
             "Jsi chatbot, který odpovídá empaticky, ale s vtipem. Vždy odpovídej v návaznosti na předchozí zprávy. "
-            "Do první odpovědi kreativně zakomponuj doporučení jednoho z těchto receptů: " + recepty + "a zakonči odpověď otázkou, zda má zájem o recept. ()"
+            "Do první odpovědi kreativně zakomponuj doporučení jednoho z těchto receptů: " + recepty + "a zakonči odpověď otázkou, zda má zájem o daný recept. ()"
             "Důležité! - Pokud je má uživatel zájem o recept, napiš pouze krátkou zprávu - přesný název receptu v prvním pádě tak, jak je v " + recepty + " a dále ', jdeme na to!'." 
             "Pokud uživatel nemá zájem o recept a nechce vařit, snaž se ho i tak jemně přesvědčit a doporučovat nějaký z receptů."
         )
