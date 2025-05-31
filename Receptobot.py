@@ -13,7 +13,6 @@ st.set_page_config(
 load_dotenv()  # toto načte proměnné z .env
 
 api_klic = os.getenv("OPENAI_API_KEY")
-#api_klic = "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"
 client = OpenAI(api_key=api_klic)
 recepty = "babiččina bábovka, klasická česnečka, hovězí guláš, svíčková, kuřecí vývar s játrovými knedlíčky, dršťková polévka, valašská kyselica, dokonalý domácí hamburger, babiččina sekaná, jednoduché palačinky"
 
