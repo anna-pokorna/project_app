@@ -10,7 +10,11 @@ st.set_page_config(
     layout="wide"
 )
 
-#load_dotenv()  # toto načte proměnné z .env
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except:
+    pass
 
 api_klic = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=api_klic)
