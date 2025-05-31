@@ -3,11 +3,22 @@ import pandas as pd
 import math
 
 st.set_page_config(
-    page_title="Co budu vařit?",
+    page_title="Nákupní seznam",
     page_icon=":material/grocery:",
     layout="wide"
 )
 
+st.markdown("""
+    <style>
+    /* Sidebar tlačítko */
+    section[data-testid="stSidebar"] button[kind="secondary"] {
+        background-color: #5C715E;
+        color: white;
+        font-weight: bold;
+        border-radius: 10px;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 
 
@@ -139,16 +150,19 @@ st.title("Nákupní seznam podle receptů")
 st.sidebar.header(":material/settings: Nastavení")
 
 recepty_list = df_recepty["recept_nazev"].unique().tolist()
-vybrane_recepty = st.multiselect("Vyber recepty", recepty_list)
+
+default_recept = st.session_state.get("default_recept", [])
+
+vybrane_recepty = st.multiselect("Vyber recepty", recepty_list, default=default_recept)
 #st.session_state.vybrane_recepty = vybrane_recepty
 pocet_porci = st.sidebar.slider("Vyber počet porcí:", 1, 10, 4)
 #zobrazeni = st.radio("Způsob výpočtu cen:", ["Cena za balení", "Cena za recept"])
 
 if vybrane_recepty:
     st.subheader(":material/grocery: Suroviny dle vybraných receptů")
+    
     with st.container(height=300, border=True):
         for recept in vybrane_recepty:
-            #st.markdown(f"🍽️ **{recept}**")
             st.markdown(f"""
             <span style="text-transform: uppercase;color: #5c715e;font-size: 1.2rem;">
                 {recept}
@@ -161,7 +175,9 @@ if vybrane_recepty:
             ingred["mnozstvi_final"] = (ingred["mnozstvi_prepoctene"] / ingred["pocet_porci"]) * pocet_porci
             for _, row in ingred.iterrows():
                 st.markdown(f"- **{row['ingredience_nazev']}** — {format_number(row['mnozstvi_surovina'])} {row['jednotka']}")
-            #st.markdown("")
+    
+    
+            
     ingredience_df = get_ingredients_for_recepty(df_recepty, vybrane_recepty, pocet_porci)
     suroviny = ingredience_df["ingredience_nazev"].tolist()
 
@@ -174,6 +190,8 @@ if vybrane_recepty:
     Cena za recept - porovnávají se **ceny za jednotku** (např. za kg nebo l), ceny se vypočítají podle množství potřebného do receptu dle zvoleného počtu porcí.
     '''
     zobrazeni = st.sidebar.radio("Způsob výpočtu cen:", ["Cena za balení", "Cena za recept"], help=zobrazeni_help)
+
+
 
     optimalizace_help = '''
     Vyplatí se nakoupit vše na jednom e-shopu, nebo je výhodnější nákup rozdělit? 
@@ -319,7 +337,7 @@ if vybrane_recepty:
             width: 100%;
             border-collapse: collapse;
             border-spacing: 0;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Source Sans Pro', sans-serif;
             border: none;
             border-radius: 12px;
         }
@@ -368,6 +386,14 @@ if vybrane_recepty:
             color: #a26769;
             text-decoration: underline;
         }
+        
+        div.stButton > button:first-child {
+                background-color: #5C715E;
+                color: white;
+                font-weight: bold;
+                border-radius: 10px;
+            }
+                    
         </style>
         """, unsafe_allow_html=True)
 
