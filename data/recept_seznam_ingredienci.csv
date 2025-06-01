@@ -73,7 +73,7 @@ recept_id,recept_nazev,unikatni_id,ingredience_nazev,typ_zpracovani,mnozstvi,jed
 5,kuřecí vývar s játrovými knedlíčky,100,česnek,prolisovaný,3,stroužek,kg,"0,004","0,012",4
 5,kuřecí vývar s játrovými knedlíčky,11,pepř mletý,,1,špetka,kg,"0,001","0,001",4
 6,valašská kyselica,74,zelí kysané,,400,g,kg,"0,001","0,4",4
-6,valašská kyselica,12,brambory ,,300,g,kg,"0,001","0,3",4
+6,valašská kyselica,12,brambory,,300,g,kg,"0,001","0,3",4
 6,valašská kyselica,45,bobkový list,,4,list,kg,"0,002","0,008",4
 6,valašská kyselica,46,nové koření,,2,kuliček,kg,"0,002","0,004",4
 6,valašská kyselica,48,máslo,,1,PL,kg,"0,02","0,02",4
