@@ -3,14 +3,17 @@ import pandas as pd
 
 st.session_state.presun_na_recept = False
 
+# Title stránky a rozložení
 st.set_page_config(
     page_title="Postup receptu",
     page_icon=":material/chef_hat:",
     layout="wide"
 )
 
+# Vložení loga
 st.logo("data/banner.png")
 
+# Vložení vlastního stylu (tlačítka)
 st.markdown("""
     <style>
         div.stButton > button:first-child {
@@ -52,13 +55,14 @@ st.title("Pracovní postup receptu")
 
 recepty = df["nazev_recept"].tolist()
 
+# Přenesení default výběru z doporučení chatbota
 doporuceny_recept = st.session_state.get("recept_doporuceny", None)
-# určíme výchozí index
+
 if doporuceny_recept in recepty:
     default_index = recepty.index(doporuceny_recept)
 else:
-    default_index = 0  # můžeš zvolit jakýkoli jiný výchozí recept
-# vykreslíme selectbox s bezpečným defaultem
+    default_index = 0   
+
 vybrany_recept = st.sidebar.selectbox("Vyber recept", recepty, index=default_index)
 
 
@@ -74,28 +78,17 @@ if vybrany_recept:
             <img src="{data["url_obrazek"]}" height="300">
         </div>
     """, unsafe_allow_html=True)
-    #st.markdown(f'<img src="{data["url_obrazek"]}" height="250">', unsafe_allow_html=True)
-    #st.image(data["url_obrazek"]) #, use_column_width=True, caption=vybrany_recept)
-
-    # Vyhledat ingredience a vytvořit nákupní seznam
-
+   
+    # Tlačítko pro přesun na nákupní sezna,
     if st.button("Vyhledat ingredience a vytvořit nákupní seznam"):
         st.session_state['value_page2'] = vybrany_recept
         st.session_state['last_page'] = "page2"
-        #st.session_state.default_recept = vybrany_recept
         st.switch_page("pages/2_Nakupni_seznam.py")
 
 
-    # Postup
+    # Výpis postupu po krocích
     st.subheader(":material/chef_hat: Postup")
-    #st.write(data["pracovni_postup"])
     kroky = postupy[vybrany_recept].dropna().tolist()
-
-    # markdown_text = ""
-    # for i, krok in enumerate(kroky, start=1):
-    #     markdown_text += f"**{i}.** {krok}\n \n"
-
-    # st.markdown(markdown_text)
     
     for i, krok in enumerate(kroky, start=1):
         st.markdown(
@@ -107,9 +100,7 @@ if vybrany_recept:
             unsafe_allow_html=True
         )
 
-    
-
-    # Výživové údaje (volitelně)
+    # Výživové údaje
     st.subheader(":material/nutrition: Výživové hodnoty (na porci)")
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Energie (kcal)", f"{data['energie_1_porce_kcal']}")
@@ -117,6 +108,7 @@ if vybrany_recept:
     col3.metric("Sacharidy (g)", f"{data['sacharidy_v_gramech']}")
     col4.metric("Tuky (g)", f"{data['tuky_v_gramech']}")
 
+    # Tlačítko pro zobrazení na původním webu
     if st.button("Zobrazit recept na webu"):
         st.markdown(f'<meta http-equiv="refresh" content="0;URL={data["url_recept"]}">', unsafe_allow_html=True)
    

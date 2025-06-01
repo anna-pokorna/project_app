@@ -4,13 +4,14 @@ import math
 
 st.session_state.presun_na_seznam = False
 
+# Title stránky a rozložení
 st.set_page_config(
     page_title="Nákupní seznam",
     page_icon=":material/grocery:",
     layout="wide"
 )
 
-
+# Vložení vlastního stylu (tlačítka)
 st.markdown("""
     <style>
     /* Sidebar tlačítko - normal */
@@ -95,22 +96,19 @@ def format_number(n):
     else:
         return f"{n:.2f}"  # číslo s dvěma desetinnými místy
 
-# --- UI ---
 
-
+# Vložení loga
 st.logo("data/banner.png")
 
+# Název stránky
 st.title("Nákupní seznam podle receptů")
-# col1, col2 = st.columns([0.1, 0.9])
-# with col1:
-#     st.image("data/logo.png")
-# with col2:
-#     st.title("Nákupní seznam podle receptů")
 
 st.sidebar.header(":material/settings: Možnosti")
 
+# Výběr receptů
 recepty_list = df_recepty["recept_nazev"].unique().tolist()
 
+# Přenesení default výběru z doporučení chatbota nebo z postupu
 default_recept = []
 
 if 'last_page' in st.session_state:
@@ -119,11 +117,10 @@ if 'last_page' in st.session_state:
     elif st.session_state['last_page'] == "page2":
         default_recept = st.session_state.get('value_page2', [])
 
-#default_recept = st.session_state.get("default_recept", [])
 vybrane_recepty = st.multiselect("Vyber recepty", recepty_list, default=default_recept)
 
+# Výběr dalších možností, do sidebaru
 pocet_porci = st.sidebar.slider("Vyber počet porcí:", 1, 10, 4)
-#zobrazeni = st.radio("Způsob výpočtu cen:", ["Cena za balení", "Cena za recept"])
 
 st.sidebar.write("Členství na eshopech:")
 rohlik_xtra = st.sidebar.checkbox("**Mám členství Rohlík Xtra** (doprava zdarma, 4x měsíčně bez minima)")
@@ -134,19 +131,18 @@ optimalizace_help = '''
     '''
 optimalizace = st.sidebar.button("Chci optimalizovat nákup", help=optimalizace_help)
 
+# Nastavení parametrů
 MIN_ORDER = 749
 ROHLIK_SHIPPING = [(1500, 0), (1199, 49), (999, 69), (1, 89), (0, 0)]
 KOSIK_SHIPPING = [(1200, 0), (1, 89), (0, 0)]
+
 
 if vybrane_recepty:
     ingredience_df = get_ingredients_for_recepty(df_recepty, vybrane_recepty, pocet_porci)
     suroviny = ingredience_df["ingredience_nazev"].tolist()
 
     st.subheader(":material/grocery: Suroviny dle vybraných receptů")
-    
-    
 
-    #with col1:
     with st.container(height=250, border=True):
         for recept in vybrane_recepty:
             st.markdown(f"""
@@ -162,15 +158,9 @@ if vybrane_recepty:
             for _, row in ingred.iterrows():
                 st.markdown(f"- **{row['ingredience_nazev']}** — {format_number(row['mnozstvi_surovina'])} {row['jednotka']}")
     
-    #with col2:
+    # Možnost vyřazení některých surovin z nákupu
     nepotrebuju = st.multiselect("Vyber suroviny, které **už máš doma** - budou vyřazeny z nákupního seznamu.", suroviny)  
     
-            
-    #ingredience_df = get_ingredients_for_recepty(df_recepty, vybrane_recepty, pocet_porci)
-    #suroviny = ingredience_df["ingredience_nazev"].tolist()
-
-    #nepotrebuju = st.sidebar.multiselect("Vyber suroviny, které UŽ máš doma", suroviny)
-
     k_nakupu = [s for s in suroviny if s not in nepotrebuju]
 
     zobrazeni_help =  '''
@@ -180,6 +170,7 @@ if vybrane_recepty:
     '''
     zobrazeni = st.sidebar.radio("Způsob výpočtu cen:", ["Cena za balení", "Cena za recept"], help=zobrazeni_help)
 
+    # Sestavení nákupního seznamu
     if k_nakupu:
         st.subheader(":material/shopping_cart: Nákupní seznam")
 
@@ -198,13 +189,11 @@ if vybrane_recepty:
         rohlik_pomocny = 0
 
         # KOŠÍK
-        #with st.container(border=True):
         for surovina in k_nakupu:
             unit_key = ingredience_df[ingredience_df["ingredience_nazev"] == surovina]["unit_katalog"].values[0]
             mnozstvi = mnozstvi_dict.get((surovina, unit_key), 0)
             items = df_kosik[df_kosik["Ingredience"] == surovina]
             for _, row in items.iterrows():
-                #
                 baleni = row["Velikost balení"]
                 jednotka = row["Jednotka balení"]
                 mnozstvi_prep = convert_units(mnozstvi, unit_key, jednotka)
@@ -232,13 +221,11 @@ if vybrane_recepty:
                     })
 
         # ROHLÍK
-        #with st.container(border=True):
         for surovina in k_nakupu:
             unit_key = ingredience_df[ingredience_df["ingredience_nazev"] == surovina]["unit_katalog"].values[0]
             mnozstvi = mnozstvi_dict.get((surovina, unit_key), 0)
             items = df_rohlik[df_rohlik["Ingredience"] == surovina]
             for _, row in items.iterrows():
-                #if zobrazeni == "Cena za balení":
                 baleni = row["Velikost balení"]
                 jednotka = row["Jednotka balení"]
                 obrazek = f'<img src="{row["IMG"]}" width="50">' 
@@ -265,7 +252,6 @@ if vybrane_recepty:
                         "Produkt Rohlík": f'<a href="{row["URL"]}" target="_blank">{row["Produkt"]}</a>',
                         "Cena ": round(cena_mnozstvi, 2),
                     })
-            #st.markdown(f"**Celkem za {'celý nákup' if zobrazeni == 'Cena za balení' else 'množství dle receptu'}: {rohlik_total:.2f} Kč**")
             if zobrazeni == 'Cena za balení':
                 st.session_state.rohlik_total = rohlik_total
                 rohlik_total_baleni = rohlik_total        
@@ -274,13 +260,13 @@ if vybrane_recepty:
         df_kosik_rows = pd.DataFrame(kosik_rows)
         df_rohlik_rows = pd.DataFrame(rohlik_rows)
 
+        # Spojení nákupních seznamů pro oba eshopy do jedné tabulky 
         spojene = pd.merge(df_kosik_rows, df_rohlik_rows, on="Ingredience", how="outer")
 
-        #with st.container(height=500, border=True):
-                #df_spojene = pd.DataFrame(spojene)
 
         st.markdown(f"**Celkem za {'celý nákup' if zobrazeni == 'Cena za balení' else 'množství dle receptu'}:**")
 
+        # Zobrazení součtů
         col1, col2 = st.columns(2)
         
         with col1:
@@ -294,17 +280,13 @@ if vybrane_recepty:
             else:
                 st.error(f"**Rohlík**: {rohlik_total:.2f} Kč")
 
-        #with st.container(height=500, border=True):    
-            # st.markdown('<style>th { text-align: left !important; }</style>', unsafe_allow_html=True)
-            # st.markdown('<style>table { width: 100% !important; } th { text-align: left !important; }</style>', unsafe_allow_html=True)
-            # st.markdown(spojene.to_html(escape=False, index=False), unsafe_allow_html=True)
+        # Vlastní styl pro tabulku
         st.markdown("""
         <style>
         .table-scroll-wrapper {
             max-height: 400px;
             overflow-y: auto;
             overflow-x: scroll; 
-            width: 100%;
             -webkit-overflow-scrolling: touch;
             border: 2px solid #f4f1ee;  /* jemný rámeček */
             border-radius: 12px;
@@ -314,7 +296,6 @@ if vybrane_recepty:
 
         /* Tabulka */
         .custom-card-table {
-            table-layout: fixed;
             background-color: #ffffff;
             width: 100%;
             border-collapse: collapse;
@@ -339,19 +320,6 @@ if vybrane_recepty:
         }
         .custom-card-table th:last-child {
             border-top-right-radius: 12px;
-        }
-        
-        /* Definuj šířku pro sloupce s obrázky (předpokládám 2. a 5. sloupec) */
-        .custom-card-table th:nth-child(2),
-        .custom-card-table th:nth-child(5) {
-            width: 150px;
-        }
-        .custom-card-table th:nth-child(4),
-        .custom-card-table th:nth-child(7) {
-            width: 80px;
-        }
-        .custom-card-table th:nth-child(1) {
-            width: 150px;
         }
 
         /* Tělo */
@@ -405,10 +373,8 @@ if vybrane_recepty:
             f'<div class="table-scroll-wrapper">{spojene.to_html(escape=False, index=False, classes="custom-card-table")}</div>',
             unsafe_allow_html=True
         )
-            #st.markdown(spojene.to_html(escape=False, index=False, classes="custom-card-table"), unsafe_allow_html=True)
 
-
-        #optimalizace = st.sidebar.button("Chci optimalizovat nákup")
+        # Optimalizace
         if optimalizace:
             st.session_state.vybrane_recepty = vybrane_recepty
             st.session_state.pocet_porci = pocet_porci
@@ -417,18 +383,6 @@ if vybrane_recepty:
             st.header("Optimalizace nákupu")
 
             st.markdown("Porovnáme, zda je výhodnější nakoupit vše v jednom e-shopu, nebo nákup rozdělit.")
-
-            # --- PARAMETRY ---
-            # MIN_ORDER = 749
-            # ROHLIK_SHIPPING = [(1500, 0), (1199, 49), (999, 69), (0, 89)]
-            # KOSIK_SHIPPING = [(1200, 0), (0, 89)]
-
-            # # --- NAČTENÍ DAT ---
-            # df_rohlik, df_kosik, df_recepty = load_data()
-
-            # recepty_list = df_recepty["recept_nazev"].unique().tolist()
-
-            default_recepty = st.session_state.get("vybrane_recepty", [])
 
             real_rohlik_total = 0  # skrytá suma za balení
             real_kosik_total = 0
@@ -500,14 +454,7 @@ if vybrane_recepty:
                         real_rohlik_total += best_price_pack
                         rohlik_items.append((ingred, round(best_price_shown, 2), best_label))
 
-                # Doprava se řídí podle reálné ceny (za balení)
-                # if real_kosik_total < MIN_ORDER:
-                #     st.warning(f"Košík: hodnota nákupu {real_kosik_total:.2f} Kč je pod minimem {MIN_ORDER} Kč — nelze objednat samostatně.")
-                # if real_rohlik_total < MIN_ORDER and not rohlik_xtra:
-                #     st.warning(f"Rohlík: hodnota nákupu {real_rohlik_total:.2f} Kč je pod minimem {MIN_ORDER} Kč — nelze objednat samostatně.")
-
-                #if real_kosik_total >= MIN_ORDER and (real_rohlik_total >= MIN_ORDER or rohlik_xtra):
-
+                
                 # Výpočet dopravy pro rozdělený nákup
                 doprava_rohlik = 0 if rohlik_xtra else next(v for k, v in ROHLIK_SHIPPING if real_rohlik_total >= k)
                 doprava_kosik = 0 if kosik_novy else next(v for k, v in KOSIK_SHIPPING if real_kosik_total >= k)
@@ -520,15 +467,8 @@ if vybrane_recepty:
                 kosik_cely = kosik_total + doprava_kosik_cely
                 rohlik_cely = rohlik_total + doprava_rohlik_cely
 
-                # Zobrazení součtů pro kontrolu
-                #st.markdown(f"Rozdělený: {total_rozdeleny}, Košík: {kosik_cely}, Rohlík: {rohlik_cely}")
-
+                # Varování o minimální hodnotě objednávky
                 if total_rozdeleny < kosik_cely and total_rozdeleny < rohlik_cely:
-                    # Doprava se řídí podle reálné ceny (za balení)
-                    # if real_kosik_total < MIN_ORDER:
-                    #     st.warning(f"Košík: hodnota nákupu {real_kosik_total:.2f} Kč je pod minimem {MIN_ORDER} Kč — nelze objednat samostatně.")
-                    # if real_rohlik_total < MIN_ORDER and not rohlik_xtra:
-                    #     st.warning(f"Rohlík: hodnota nákupu {real_rohlik_total:.2f} Kč je pod minimem {MIN_ORDER} Kč — nelze objednat samostatně.")
                     if real_kosik_total < MIN_ORDER:
                         st.warning(f"Košík: hodnota nákupu je pod minimem {MIN_ORDER} Kč — nelze objednat samostatně.")
                     if real_rohlik_total < MIN_ORDER and not rohlik_xtra:
@@ -536,29 +476,11 @@ if vybrane_recepty:
 
                     st.subheader(":material/shopping_bag: Rozdělený nákup")
 
+                    # Rozdělené nákupy - součty
                     st.markdown(f"**Košík:** {total_kosik:.2f} Kč + doprava {doprava_kosik:.0f} Kč = {total_kosik + doprava_kosik:.2f} Kč")
                     st.markdown(f"**Rohlík:** {total_rohlik:.2f} Kč + doprava {doprava_rohlik:.0f} Kč = {total_rohlik + doprava_rohlik:.2f} Kč")
-
                     
-
-                    # col1, col2 = st.columns(2)
-                    # with col1:
-                    #     st.markdown(f"**Košík:** {total_kosik:.2f} Kč + doprava {doprava_kosik:.0f} Kč = {total_kosik + doprava_kosik:.2f} Kč")
-                    #     with st.expander("Detaily nákupu v Košíku"):
-                    #         df_k = pd.DataFrame(kosik_items, columns=["Ingredience", "Cena", "Produkt"])
-                    #         st.markdown('<style>th { text-align: left !important; }</style>', unsafe_allow_html=True)
-                    #         st.markdown('<style>table { width: 100% !important; } th { text-align: left !important; }</style>', unsafe_allow_html=True)
-                    #         st.markdown(df_k.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-                    # with col2:    
-                    #     st.markdown(f"**Rohlík:** {total_rohlik:.2f} Kč + doprava {doprava_rohlik:.0f} Kč = {total_rohlik + doprava_rohlik:.2f} Kč")
-                    #     with st.expander("Detaily nákupu v Rohlíku"):
-                    #         df_r = pd.DataFrame(rohlik_items, columns=["Ingredience", "Cena", "Produkt"])
-                    #         st.markdown('<style>th { text-align: left !important; }</style>', unsafe_allow_html=True)
-                    #         st.markdown('<style>table { width: 100% !important; } th { text-align: left !important; }</style>', unsafe_allow_html=True)
-                    #         st.markdown(df_r.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-                    
+                    # Součet rozděleného nákupu a úspora oproti nerozdělení
                     if zobrazeni == "Cena za balení":
                         st.markdown("**Celková cena rozděleného nákupu:**")
                     else:
@@ -570,19 +492,17 @@ if vybrane_recepty:
                         st.success(f"{total_rozdeleny:.2f} Kč")
                     
                     with col2:
-                        #st.markdown(f"Úspora oproti nákupu pouze na **Košíku**: :green-badge[{kosik_total - total_kosik - total_rohlik:.2f} Kč]") 
-                        #st.markdown(f"Úspora oproti nákupu pouze na **Rohlíku**: :green-badge[{rohlik_total - total_kosik - total_rohlik:.2f} Kč]")
                         st.markdown(f"Úspora oproti nákupu pouze na **Košíku**: :green-badge[{kosik_cely - total_rozdeleny:.2f} Kč]") 
                         st.markdown(f"Úspora oproti nákupu pouze na **Rohlíku**: :green-badge[{rohlik_cely - total_rozdeleny:.2f} Kč]")
                                 
-
+                    # Detaily rozdělených nákupních seznamů
                     st.markdown("**Detaily nákupu v jednotlivých e-shopech:**") 
 
-        
+                    # Zobrazení v záložkách
                     tab1, tab2 = st.tabs(["Košík", "Rohlík"]) 
                     with tab1:
                         df_k = pd.DataFrame(kosik_items, columns=["Ingredience", "Cena", "Produkt"])
-                        # Vykreslení tabulky v divu se scrollbarem
+                        # Tabulka
                         st.markdown(
                             f'<div class="table-scroll-wrapper">{df_k.to_html(escape=False, index=False, classes="custom-card-table")}</div>',
                             unsafe_allow_html=True
@@ -590,32 +510,19 @@ if vybrane_recepty:
 
                     with tab2:
                         df_r = pd.DataFrame(rohlik_items, columns=["Ingredience", "Cena", "Produkt"])
-                        # Vykreslení tabulky v divu se scrollbarem
+                        # Tabulka
                         st.markdown(
                             f'<div class="table-scroll-wrapper">{df_r.to_html(escape=False, index=False, classes="custom-card-table")}</div>',
                             unsafe_allow_html=True
                         )
 
 
-                    # with tab1:
-                    #     with st.container(height=300, border=True):
-                    #         df_k = pd.DataFrame(kosik_items, columns=["Ingredience", "Cena", "Produkt"])
-                    #         st.markdown('<style>th { text-align: left !important; }</style>', unsafe_allow_html=True)
-                    #         st.markdown('<style>table { width: 100% !important; } th { text-align: left !important; }</style>', unsafe_allow_html=True)
-                    #         st.markdown(df_k.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-                    # with tab2:
-                    #     with st.container(height=300, border=True):
-                    #         df_r = pd.DataFrame(rohlik_items, columns=["Ingredience", "Cena", "Produkt"])
-                    #         st.markdown('<style>th { text-align: left !important; }</style>', unsafe_allow_html=True)
-                    #         st.markdown('<style>table { width: 100% !important; } th { text-align: left !important; }</style>', unsafe_allow_html=True)
-                    #         st.markdown(df_r.to_html(escape=False, index=False), unsafe_allow_html=True)
+                # Hláška pokud se optimalizyce nevyplatí    
                 elif total_rozdeleny == kosik_cely: 
                     st.info("Rozdělený nákup se nevyplatí: všechny produkty jsou levnější na **Košíku**.")
                 elif total_rozdeleny == rohlik_cely:
                     st.info("Rozdělený nákup se nevyplatí: všechny produkty jsou levnější na **Rohlíku**.")
                 else:
-                    #st.info("Rozdělený nákup není možný – některý košík nesplňuje minimální hodnotu objednávky.")
                     st.info("Rozdělený nákup se nevyplatí: cena dodatečné dopravy převyšuje úsporu na ceně za produkty.")
 
             else:

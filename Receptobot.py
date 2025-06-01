@@ -5,12 +5,14 @@ from dotenv import load_dotenv
 import os
 import pandas as pd
 
+# Title stránky a rozložení
 st.set_page_config(
     page_title="Receptobot",
     page_icon=":material/smart_toy:",
     layout="wide"
 )
 
+# Skrytí zápatí
 hide_default_format = """
        <style>
        footer {visibility: hidden;}
@@ -18,9 +20,10 @@ hide_default_format = """
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
-
+# Vložení loga
 st.logo("data/banner.png")
 
+# Načtení api klíče
 try:
     from dotenv import load_dotenv
     load_dotenv()
@@ -29,8 +32,8 @@ except:
 
 api_klic = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=api_klic)
-# recepty = "babiččina bábovka, klasická česnečka, hovězí guláš, svíčková, kuřecí vývar s játrovými knedlíčky, dršťková polévka, valašská kyselica, dokonalý domácí hamburger, babiččina sekaná, jednoduché palačinky"
 
+# Načtení dat o receptech
 df_recepty = pd.read_csv("data/recepty.csv")
 recepty_list = df_recepty["nazev_recept"].tolist()
 random.shuffle(recepty_list)
@@ -47,6 +50,7 @@ uvodni_otazky = [
     "Co se ti dnes honí hlavou?"
 ]
 
+# Tlačítko pro novou konverzaci
 if st.sidebar.button(":material/delete: Nová konverzace"):
     uvodni_otazka = random.choice(uvodni_otazky)
     st.session_state.uvodni_otazka = uvodni_otazka
@@ -109,7 +113,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
+# Nadpis stránky
 col1, col2 = st.columns([0.1, 0.9], vertical_alignment = "center")
 with col1:
     st.image("data/receptobot.png")
@@ -121,7 +125,7 @@ st.subheader("_Recept na každou náladu i problém_")
 # Inicializace při prvním načtení
 if "messages" not in st.session_state:
     uvodni_otazka = random.choice(uvodni_otazky)
-    st.session_state.uvodni_otazka = uvodni_otazka  # uložíme otázku zvlášť
+    st.session_state.uvodni_otazka = uvodni_otazka  
     st.session_state.messages = [
         {"role": "assistant", "content": uvodni_otazka, "avatar": ":material/smart_toy:"}
     ]
@@ -191,17 +195,18 @@ if user_input:
     else:
         st.session_state.ukazat_tlacitko = False
             
-# Pokud máme ukázat tlačítko, zobrazíme ho mimo user_input blok
+# Zobrazení tlačítek pro přesun
 if st.session_state.ukazat_tlacitko:
     if st.button("Chci recept"):
         st.session_state.presun_na_recept = True
     if st.button("Chci rovnou nákupní seznam"):
         st.session_state.presun_na_seznam = True
 
-# Přesměrování na jinou stránku
+# Přesměrování na stránku s postupem
 if st.session_state.presun_na_recept:
     st.switch_page("pages/1_Postup_receptu.py")
 
+# Přesměrování na stránku s nákupním seznamem
 if st.session_state.presun_na_seznam:
     st.session_state['value_page1'] = st.session_state.recept_doporuceny
     st.session_state['last_page'] = "page1"
