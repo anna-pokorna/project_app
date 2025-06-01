@@ -147,7 +147,7 @@ if vybrane_recepty:
     
 
     #with col1:
-    with st.container(height=300, border=True):
+    with st.container(height=250, border=True):
         for recept in vybrane_recepty:
             st.markdown(f"""
             <span style="text-transform: uppercase;color: #5c715e;font-size: 1.2rem;">
@@ -301,8 +301,9 @@ if vybrane_recepty:
         st.markdown("""
         <style>
         .table-scroll-wrapper {
-            max-height: 500px;
+            max-height: 400px;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             border: 2px solid #f4f1ee;  /* jemný rámeček */
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
