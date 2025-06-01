@@ -303,6 +303,8 @@ if vybrane_recepty:
         .table-scroll-wrapper {
             max-height: 400px;
             overflow-y: auto;
+            overflow-x: scroll; 
+            width: 100%;
             -webkit-overflow-scrolling: touch;
             border: 2px solid #f4f1ee;  /* jemný rámeček */
             border-radius: 12px;
@@ -312,6 +314,7 @@ if vybrane_recepty:
 
         /* Tabulka */
         .custom-card-table {
+            table-layout: fixed;
             background-color: #ffffff;
             width: 100%;
             border-collapse: collapse;
@@ -337,6 +340,19 @@ if vybrane_recepty:
         .custom-card-table th:last-child {
             border-top-right-radius: 12px;
         }
+        
+        /* Definuj šířku pro sloupce s obrázky (předpokládám 2. a 5. sloupec) */
+        .custom-card-table th:nth-child(2),
+        .custom-card-table th:nth-child(5) {
+            width: 150px;
+        }
+        .custom-card-table th:nth-child(4),
+        .custom-card-table th:nth-child(7) {
+            width: 80px;
+        }
+        .custom-card-table th:nth-child(1) {
+            width: 150px;
+        }
 
         /* Tělo */
         .custom-card-table td {
@@ -344,6 +360,14 @@ if vybrane_recepty:
             border: none;
         }
 
+        /* Aby se obrázky centrovaly a nemizely */
+        .custom-card-table td img {
+            display: block;
+            margin: 0 auto;
+            max-height: 50px;
+            width: auto;
+        }
+                    
         /* Řádky */
         .custom-card-table tr:nth-child(even) {
             background-color: #f4f1ee;

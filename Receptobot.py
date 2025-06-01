@@ -11,6 +11,15 @@ st.set_page_config(
     layout="wide"
 )
 
+hide_default_format = """
+       <style>
+       #MainMenu {visibility: hidden; }
+       footer {visibility: hidden;}
+       </style>
+       """
+st.markdown(hide_default_format, unsafe_allow_html=True)
+
+
 st.logo("data/banner.png")
 
 try:
