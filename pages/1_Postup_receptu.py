@@ -44,6 +44,9 @@ def load_data():
 
 df = load_data()
 
+postupy = pd.read_csv("data/recept_postup.csv")
+nazvy = postupy.columns.tolist()
+
 # Výběr receptu
 st.title("Pracovní postup receptu")
 
@@ -77,13 +80,32 @@ if vybrany_recept:
     # Vyhledat ingredience a vytvořit nákupní seznam
 
     if st.button("Vyhledat ingredience a vytvořit nákupní seznam"):
-        st.session_state.default_recept = vybrany_recept
-        st.switch_page("pages/Nákupní seznam.py")
+        st.session_state['value_page2'] = vybrany_recept
+        st.session_state['last_page'] = "page2"
+        #st.session_state.default_recept = vybrany_recept
+        st.switch_page("pages/2_Nakupni_seznam.py")
 
 
     # Postup
     st.subheader(":material/chef_hat: Postup")
-    st.write(data["pracovni_postup"])
+    #st.write(data["pracovni_postup"])
+    kroky = postupy[vybrany_recept].dropna().tolist()
+
+    # markdown_text = ""
+    # for i, krok in enumerate(kroky, start=1):
+    #     markdown_text += f"**{i}.** {krok}\n \n"
+
+    # st.markdown(markdown_text)
+    
+    for i, krok in enumerate(kroky, start=1):
+        st.markdown(
+            f"""
+            <div style="background-color:#ffffff; padding:10px; border-radius:10px; margin-bottom:15px;">
+                <b>{i}.</b> {krok}
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     
 

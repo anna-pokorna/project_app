@@ -3,6 +3,7 @@ from openai import OpenAI
 import random
 from dotenv import load_dotenv
 import os
+import pandas as pd
 
 st.set_page_config(
     page_title="Receptobot",
@@ -20,7 +21,12 @@ except:
 
 api_klic = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=api_klic)
-recepty = "babiččina bábovka, klasická česnečka, hovězí guláš, svíčková, kuřecí vývar s játrovými knedlíčky, dršťková polévka, valašská kyselica, dokonalý domácí hamburger, babiččina sekaná, jednoduché palačinky"
+# recepty = "babiččina bábovka, klasická česnečka, hovězí guláš, svíčková, kuřecí vývar s játrovými knedlíčky, dršťková polévka, valašská kyselica, dokonalý domácí hamburger, babiččina sekaná, jednoduché palačinky"
+
+df_recepty = pd.read_csv("data/recepty.csv")
+recepty_list = df_recepty["nazev_recept"].tolist()
+random.shuffle(recepty_list)
+recepty_text = "\n".join(f"- {r}" for r in recepty_list)
 
 # Seznam úvodních otázek
 uvodni_otazky = [
@@ -42,6 +48,7 @@ if st.sidebar.button(":material/delete: Nová konverzace"):
     st.session_state.ukazat_tlacitko = False
     st.session_state.recept_doporuceny = ""
     st.session_state.presun_na_recept = False
+    st.session_state.presun_na_seznam = False
     st.rerun()
 
 jdemenato = "jdeme na to!"
@@ -95,8 +102,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-#st.title("Receptobot")
-col1, col2 = st.columns([0.08, 0.92])
+col1, col2 = st.columns([0.1, 0.9], vertical_alignment = "center")
 with col1:
     st.image("data/receptobot.png")
 with col2:
@@ -114,6 +120,7 @@ if "messages" not in st.session_state:
     st.session_state.ukazat_tlacitko = False
     st.session_state.recept_doporuceny = ""
     st.session_state.presun_na_recept = False
+    st.session_state.presun_na_seznam = False
 
 # Zobrazení historie
 for msg in st.session_state.messages:
@@ -138,10 +145,10 @@ if user_input:
     messages_for_openai.append({
         "role": "system",
         "content": (
-            "Jsi chatbot, který odpovídá empaticky, ale s vtipem. Vždy odpovídej v návaznosti na předchozí zprávy. "
-            "Do první odpovědi kreativně zakomponuj doporučení jednoho z těchto receptů: " + recepty + "a zakonči odpověď otázkou, zda má zájem o daný recept. ()"
-            "Důležité! - Pokud je má uživatel zájem o recept, napiš pouze krátkou zprávu - přesný název receptu v prvním pádě tak, jak je v " + recepty + " a dále ', jdeme na to!'." 
-            "Pokud uživatel nemá zájem o recept a nechce vařit, snaž se ho i tak jemně přesvědčit a doporučovat nějaký z receptů."
+            f"Jsi chatbot, který odpovídá empaticky, ale s vtipem. Vždy odpovídej v návaznosti na předchozí zprávy. "
+            f"Do první odpovědi kreativně zakomponuj doporučení jednoho z těchto receptů: \n {recepty_text} \n a zakonči odpověď otázkou, zda má zájem o daný recept. ()"
+            f"Důležité! - Pokud je má uživatel zájem o recept, napiš pouze krátkou zprávu - přesný název receptu v prvním pádě tak, jak je v \n {recepty_text} \n a dále ', jdeme na to!'." 
+            f"Pokud uživatel nemá zájem o recept a nechce vařit, snaž se ho i tak jemně přesvědčit a doporučovat nějaký z receptů."
         )
     })
 
@@ -171,6 +178,7 @@ if user_input:
 
     if jdemenato in response_text.lower():
         st.session_state.recept_doporuceny = response_text.split(",")[0].lower()
+        doporuceny_recept = response_text.split(",")[0].lower()
         st.session_state.ukazat_tlacitko = True
     else:
         st.session_state.ukazat_tlacitko = False
@@ -179,8 +187,14 @@ if user_input:
 if st.session_state.ukazat_tlacitko:
     if st.button("Chci recept"):
         st.session_state.presun_na_recept = True
+    if st.button("Chci rovnou nákupní seznam"):
+        st.session_state.presun_na_seznam = True
 
 # Přesměrování na jinou stránku
 if st.session_state.presun_na_recept:
-    st.switch_page("pages/Postup receptu.py")
+    st.switch_page("pages/1_Postup_receptu.py")
 
+if st.session_state.presun_na_seznam:
+    st.session_state['value_page1'] = st.session_state.recept_doporuceny
+    st.session_state['last_page'] = "page1"
+    st.switch_page("pages/2_Nakupni_seznam.py")

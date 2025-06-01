@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import math
 
+st.session_state.presun_na_seznam = False
+
 st.set_page_config(
     page_title="Nákupní seznam",
     page_icon=":material/grocery:",
@@ -94,65 +96,6 @@ def format_number(n):
         return f"{n:.2f}"  # číslo s dvěma desetinnými místy
 
 # --- UI ---
-# st.markdown("""
-#     <style>
-#         /* Tělo aplikace */
-#         .stApp {
-#             background-color: #f4f1ee;
-#             font-family: 'Segoe UI', sans-serif;
-#         }
-
-#         /* Boxy/karty */
-#         .stContainer, .stMarkdown, .stDataFrame {
-#             background-color: #ffffff;
-#             border-radius: 8px;
-#             padding: 1rem;
-#             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-#         }
-
-#         /* Tlačítka */
-#         .stButton>button {
-#             background-color: #5c715e;
-#             color: white;
-#             border: none;
-#             padding: 0.6rem 1.2rem;
-#             border-radius: 6px;
-#             transition: background-color 0.2s ease;
-#         }
-#         .stButton>button:hover {
-#             background-color: #3e5240;
-#             cursor: pointer;
-#         }
-
-#         /* Nadpisy */
-#         h1, h2, h3, h4 {
-#             color: #2e2e2e;
-#         }
-
-#         /* Scrollbar */
-#         ::-webkit-scrollbar {
-#             width: 8px;
-#         }
-#         ::-webkit-scrollbar-thumb {
-#             background-color: #c9d5b5;
-#             border-radius: 4px;
-#         }
-#         ::-webkit-scrollbar-thumb:hover {
-#             background-color: #aebc98;
-#         }
-
-#         /* Inputs */
-#         .stTextInput>div>input,
-#         .stSelectbox>div>div>div>input {
-#             background-color: #ffffff;
-#             border-radius: 6px;
-#             padding: 0.4rem;
-#         }
-#     </style>
-# """, unsafe_allow_html=True)
-
-
-
 
 
 st.logo("data/banner.png")
@@ -168,8 +111,15 @@ st.sidebar.header(":material/settings: Možnosti")
 
 recepty_list = df_recepty["recept_nazev"].unique().tolist()
 
-default_recept = st.session_state.get("default_recept", [])
+default_recept = []
 
+if 'last_page' in st.session_state:
+    if st.session_state['last_page'] == "page1":
+        default_recept = st.session_state.get('value_page1', [])
+    elif st.session_state['last_page'] == "page2":
+        default_recept = st.session_state.get('value_page2', [])
+
+#default_recept = st.session_state.get("default_recept", [])
 vybrane_recepty = st.multiselect("Vyber recepty", recepty_list, default=default_recept)
 
 pocet_porci = st.sidebar.slider("Vyber počet porcí:", 1, 10, 4)
@@ -213,7 +163,7 @@ if vybrane_recepty:
                 st.markdown(f"- **{row['ingredience_nazev']}** — {format_number(row['mnozstvi_surovina'])} {row['jednotka']}")
     
     #with col2:
-    nepotrebuju = st.multiselect("Vyber suroviny, které UŽ máš doma - budou vyřazeny z nákupu", suroviny)  
+    nepotrebuju = st.multiselect("Vyber suroviny, které **už máš doma** - budou vyřazeny z nákupního seznamu.", suroviny)  
     
             
     #ingredience_df = get_ingredients_for_recepty(df_recepty, vybrane_recepty, pocet_porci)
@@ -550,10 +500,14 @@ if vybrane_recepty:
 
                 if total_rozdeleny < kosik_cely and total_rozdeleny < rohlik_cely:
                     # Doprava se řídí podle reálné ceny (za balení)
+                    # if real_kosik_total < MIN_ORDER:
+                    #     st.warning(f"Košík: hodnota nákupu {real_kosik_total:.2f} Kč je pod minimem {MIN_ORDER} Kč — nelze objednat samostatně.")
+                    # if real_rohlik_total < MIN_ORDER and not rohlik_xtra:
+                    #     st.warning(f"Rohlík: hodnota nákupu {real_rohlik_total:.2f} Kč je pod minimem {MIN_ORDER} Kč — nelze objednat samostatně.")
                     if real_kosik_total < MIN_ORDER:
-                        st.warning(f"Košík: hodnota nákupu {real_kosik_total:.2f} Kč je pod minimem {MIN_ORDER} Kč — nelze objednat samostatně.")
+                        st.warning(f"Košík: hodnota nákupu je pod minimem {MIN_ORDER} Kč — nelze objednat samostatně.")
                     if real_rohlik_total < MIN_ORDER and not rohlik_xtra:
-                        st.warning(f"Rohlík: hodnota nákupu {real_rohlik_total:.2f} Kč je pod minimem {MIN_ORDER} Kč — nelze objednat samostatně.")
+                        st.warning(f"Rohlík: hodnota nákupu je pod minimem {MIN_ORDER} Kč — nelze objednat samostatně.")
 
                     st.subheader(":material/shopping_bag: Rozdělený nákup")
 
