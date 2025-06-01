@@ -13,7 +13,6 @@ st.set_page_config(
 
 hide_default_format = """
        <style>
-       #MainMenu {visibility: hidden; }
        footer {visibility: hidden;}
        </style>
        """
