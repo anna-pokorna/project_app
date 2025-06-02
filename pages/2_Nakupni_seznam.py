@@ -374,6 +374,8 @@ if vybrane_recepty:
             unsafe_allow_html=True
         )
 
+        st.caption("Poznámka: Množství každé suroviny je přepočteno na váhu (kg) či objem (l) pro výpočet potřebného množství balení produktů a přesnější výpočet ceny.")
+
         # Optimalizace
         if optimalizace:
             st.session_state.vybrane_recepty = vybrane_recepty
@@ -382,7 +384,8 @@ if vybrane_recepty:
 
             st.header("Optimalizace nákupu")
 
-            st.markdown("Porovnáme, zda je výhodnější nakoupit vše v jednom e-shopu, nebo nákup rozdělit.")
+            st.markdown("Porovnáme, zda je výhodnější nakoupit **vše v jednom e-shopu**, nebo **nákup rozdělit**.")
+            st.markdown("Pro každou surovinu najdeme vždy **levnější variantu** produktu mezi e-shopy a sestavíme **dva rozdělené nákupy**. Nákup rozdělíme jen tehdy, pokud i při zohlednění **ceny dopravy** na obou e-shopech vyjde levněji než jeden společný nákup. Je třeba uvažovat i hodnotu **minimální objednávky**. Při výběru zobrazení _Cena za recept_ optimalizujeme přes **cenu za jednotku** u každého z produktů.")
 
             real_rohlik_total = 0  # skrytá suma za balení
             real_kosik_total = 0
