@@ -2,81 +2,81 @@ recept_id,recept_nazev,unikatni_id,ingredience_nazev,typ_zpracovani,mnozstvi,jed
 1,dršťková polévka,1,cibule,nadrobno pokrájená,1,ks,kg,"0,07","0,07",4
 1,dršťková polévka,18,sádlo,,1,PL,kg,"0,012","0,012",4
 1,dršťková polévka,3,mouka pšeničná hladká,,1,PL,kg,"0,015","0,015",4
-1,dršťková polévka,26,paprika mletá sladká,mletá,1,ČL,kg,"0,003","0,003",4
+1,dršťková polévka,26,paprika mletá sladká,mletá,1,ČL,kg,"0,002","0,002",4
 1,dršťková polévka,5,hovězí dršťky,"předvařené, nakrájené na nudličky",500,g,kg,"0,001","0,5",4
 1,dršťková polévka,28,vývar,,"1,5",l,l,1,"1,5",4
 1,dršťková polévka,118,sůl,,1,ČL,kg,"0,005","0,005",4
 1,dršťková polévka,100,česnek,drcený,2,stroužek,kg,"0,004","0,008",4
-1,dršťková polévka,119,majoránka drhnutá,drhnutá,1,špetka,kg,"0,001","0,001",4
+1,dršťková polévka,119,majoránka drhnutá,drhnutá,1,špetka,kg,"0,0005","0,0005",4
 1,dršťková polévka,10,chilli mleté,sušené mleté,1,špetka,kg,"0,001","0,001",4
 1,dršťková polévka,11,pepř mletý,čerstvě mletý,1,špetka,kg,"0,001","0,001",4
 2,klasická česnečka,12,brambory,oloupané,3,ks,kg,"0,09","0,27",4
 2,klasická česnečka,100,česnek,oloupaných,8,stroužek,kg,"0,004","0,032",4
 2,klasická česnečka,14,kmín celý,,1,ČL,kg,"0,003","0,003",4
 2,klasická česnečka,15,vývar kuřecí,,750,ml,l,"0,001","0,75",4
-2,klasická česnečka,119,majoránka drhnutá,drhnutá,2,ČL,kg,"0,003","0,006",4
+2,klasická česnečka,119,majoránka drhnutá,drhnutá,2,ČL,kg,"0,001","0,002",4
 2,klasická česnečka,1,cibule,oloupaná,1,ks,kg,"0,07","0,07",4
-2,klasická česnečka,18,sádlo,,1,PL,kg,"0,012","0,012",4
 2,klasická česnečka,11,pepř mletý,čerstvě mletý,1,špetka,kg,"0,001","0,001",4
+2,klasická česnečka,18,sádlo,,1,PL,kg,"0,012","0,012",4
 2,klasická česnečka,20,majoránka čerstvá,,1,snítka,kg,"0,002","0,002",4
 3,hovězí guláš,21,kližka hovězí,,1,kg,kg,1,1,4
 3,hovězí guláš,11,pepř mletý,mletý,1,PL,kg,"0,015","0,015",4
 3,hovězí guláš,23,olivový olej,,1,ČL,l,"0,005","0,005",4
 3,hovězí guláš,1,cibule,,500,g,kg,"0,001","0,5",4
-3,hovězí guláš,25,rostlinný olej,,3,PL,l,"0,015","0,045",4
-3,hovězí guláš,26,paprika mletá sladká,mletá,1,PL,kg,"0,01","0,01",4
+3,hovězí guláš,26,paprika mletá sladká,mletá,1,PL,kg,"0,007","0,007",4
+3,hovězí guláš,25,rostlinný olej,,3,PL,l,"0,012","0,036",4
 3,hovězí guláš,118,sůl,,1,ČL,kg,"0,005","0,005",4
 3,hovězí guláš,28,vývar,,200,ml,l,"0,001","0,2",4
-3,hovězí guláš,29,rajče,rozpůlené,1,ks,kg,"0,13","0,13",4
+3,hovězí guláš,29,rajče,rozpůlené,1,ks,kg,"0,08","0,08",4
 3,hovězí guláš,30,skořice mletá,mletá,1,špetka,kg,"0,001","0,001",4
 3,hovězí guláš,3,mouka pšeničná hladká,,1,PL,kg,"0,015","0,015",4
-3,hovězí guláš,119,majoránka drhnutá,drhnutá,2,PL,kg,"0,01","0,02",4
+3,hovězí guláš,119,majoránka drhnutá,drhnutá,2,PL,kg,"0,002","0,004",4
 3,hovězí guláš,105,worcesterská omáčka,,1,ČL,l,"0,005","0,005",4
 4,svíčková,34,hovězí maso pečeně,,700,g,kg,"0,001","0,7",4
 4,svíčková,35,slanina,na klínky,200,g,kg,"0,001","0,2",4
-4,svíčková,36,mrkev,,3,ks,kg,"0,1","0,3",4
+4,svíčková,36,mrkev,,3,ks,kg,"0,08","0,24",4
 4,svíčková,37,celer,,200,g,kg,"0,001","0,2",4
-4,svíčková,38,petržel,,1,ks,kg,"0,09","0,09",4
+4,svíčková,38,petržel,,1,ks,kg,"0,08","0,08",4
 4,svíčková,1,cibule,,2,ks,kg,"0,07","0,14",4
 4,svíčková,40,brusinky nakládané,,200,g,kg,"0,001","0,2",4
-4,svíčková,41,hořčice plnotučná,,2,PL,kg,"0,02","0,04",4
+4,svíčková,41,hořčice plnotučná,,2,PL,kg,"0,017","0,034",4
 4,svíčková,42,ocet kvasný,,20,ml,l,"0,001","0,02",4
 4,svíčková,43,citron,zbavené bílé vrstvy a nakrájené + 1 citron pokrájený na plátky (na ozdobu),4,ks,kg,"0,09","0,36",4
-4,svíčková,44,tymián sušený,sušený,1,ČL,kg,"0,003","0,003",4
-4,svíčková,45,bobkový list,,4,ks,kg,"0,002","0,008",4
-4,svíčková,46,nové koření,,8,kuliček,kg,"0,002","0,016",4
+4,svíčková,44,tymián sušený,sušený,1,ČL,kg,"0,0015","0,0015",4
+4,svíčková,45,bobkový list,,4,ks,kg,"0,001","0,004",4
+4,svíčková,46,nové koření,,8,kuliček,kg,"0,001","0,008",4
 4,svíčková,47,slunečnicový olej,,200,ml,l,"0,001","0,2",4
 4,svíčková,48,máslo,,120,g,kg,"0,001","0,12",4
 4,svíčková,49,krupicový cukr,,2,PL,kg,"0,012","0,024",4
-4,svíčková,118,sůl,,2,PL,kg,"0,02","0,04",4
+4,svíčková,118,sůl,,2,PL,kg,"0,015","0,03",4
 4,svíčková,51,pepř bílý mletý,mletý,2,PL,kg,"0,015","0,03",4
 4,svíčková,52,zakysaná smetana,,200,g,kg,"0,001","0,2",4
 4,svíčková,53,smetana ke šlehání,,250,ml,l,"0,001","0,25",4
-4,svíčková,54,mléko,,2,PL,l,"0,02","0,04",4
+4,svíčková,54,mléko,,2,PL,l,"0,015","0,03",4
 4,svíčková,3,mouka pšeničná hladká,,2,PL,kg,"0,015","0,03",4
 5,kuřecí vývar s játrovými knedlíčky,56,"kuřecí vnitřnosti droby, křídla, odřezky",odřezky,400,g,kg,"0,001","0,4",4
+5,kuřecí vývar s játrovými knedlíčky,36,mrkev,očištěné,3,ks,kg,"0,08","0,24",4
 5,kuřecí vývar s játrovými knedlíčky,37,celer,očištěné,"0,5",ks,kg,"0,8","0,4",4
-5,kuřecí vývar s játrovými knedlíčky,36,mrkev,očištěné,3,ks,kg,"0,1","0,3",4
-5,kuřecí vývar s játrovými knedlíčky,38,petržel,očištěné,2,ks,kg,"0,09","0,18",4
+5,kuřecí vývar s játrovými knedlíčky,38,petržel,očištěné,2,ks,kg,"0,08","0,16",4
 5,kuřecí vývar s játrovými knedlíčky,1,cibule,,1,ks,kg,"0,07","0,07",4
-5,kuřecí vývar s játrovými knedlíčky,61,petržel hladkolistá,,1,snítka,kg,"0,005","0,005",4
+5,kuřecí vývar s játrovými knedlíčky,61,petržel hladkolistá,nasekaná,1,PL,kg,"0,003","0,003",4
 5,kuřecí vývar s játrovými knedlíčky,62,pepř celý,,6,kuliček,kg,"0,001","0,006",4
-5,kuřecí vývar s játrovými knedlíčky,46,nové koření,,3,kuliček,kg,"0,002","0,006",4
-5,kuřecí vývar s játrovými knedlíčky,118,sůl,,1,PL,kg,"0,02","0,02",4
+5,kuřecí vývar s játrovými knedlíčky,46,nové koření,,3,kuliček,kg,"0,001","0,003",4
+5,kuřecí vývar s játrovými knedlíčky,118,sůl,,1,PL,kg,"0,015","0,015",4
 5,kuřecí vývar s játrovými knedlíčky,65,játra kuřecí,"odblaněná, omytá",250,g,kg,"0,001","0,25",4
 5,kuřecí vývar s játrovými knedlíčky,66,kuřecí prsa,,250,g,kg,"0,001","0,25",4
 5,kuřecí vývar s játrovými knedlíčky,120,strouhanka,,175,g,kg,"0,001","0,175",4
 5,kuřecí vývar s játrovými knedlíčky,54,mléko,,50,ml,l,"0,001","0,05",4
 5,kuřecí vývar s játrovými knedlíčky,69,vejce,,4,žloutek,ks,1,4,4
-5,kuřecí vývar s játrovými knedlíčky,61,petržel hladkolistá,nasekaná,1,PL,kg,"0,005","0,005",4
-5,kuřecí vývar s játrovými knedlíčky,119,majoránka drhnutá,drhnutá,2,ČL,kg,"0,003","0,006",4
+5,kuřecí vývar s játrovými knedlíčky,61,petržel hladkolistá,,1,snítka,kg,"0,002","0,002",4
+5,kuřecí vývar s játrovými knedlíčky,119,majoránka drhnutá,drhnutá,2,ČL,kg,"0,001","0,002",4
 5,kuřecí vývar s játrovými knedlíčky,100,česnek,prolisovaný,3,stroužek,kg,"0,004","0,012",4
 5,kuřecí vývar s játrovými knedlíčky,11,pepř mletý,,1,špetka,kg,"0,001","0,001",4
 6,valašská kyselica,74,zelí kysané,,400,g,kg,"0,001","0,4",4
 6,valašská kyselica,12,brambory,,300,g,kg,"0,001","0,3",4
-6,valašská kyselica,45,bobkový list,,4,list,kg,"0,002","0,008",4
-6,valašská kyselica,46,nové koření,,2,kuliček,kg,"0,002","0,004",4
-6,valašská kyselica,48,máslo,,1,PL,kg,"0,02","0,02",4
+6,valašská kyselica,45,bobkový list,,4,list,kg,"0,001","0,004",4
+6,valašská kyselica,46,nové koření,,2,kuliček,kg,"0,001","0,002",4
+6,valašská kyselica,48,máslo,,1,PL,kg,"0,015","0,015",4
 6,valašská kyselica,35,slanina,,50,g,kg,"0,001","0,05",4
 6,valašská kyselica,14,kmín celý,,1,ČL,kg,"0,003","0,003",4
 6,valašská kyselica,1,cibule,,1,ks,kg,"0,07","0,07",4
@@ -89,14 +89,13 @@ recept_id,recept_nazev,unikatni_id,ingredience_nazev,typ_zpracovani,mnozstvi,jed
 7,dokonalý domácí hamburger,88,hovězí maso mleté,mleté,800,g,kg,"0,001","0,8",4
 7,dokonalý domácí hamburger,1,cibule,nakrájená nadrobno,"0,5",ks,kg,"0,07","0,035",4
 7,dokonalý domácí hamburger,100,česnek,drcený,"0,5",stroužek,kg,"0,004","0,002",4
-7,dokonalý domácí hamburger,61,petržel hladkolistá,nasekaná,1,PL,kg,"0,005","0,005",4
-7,dokonalý domácí hamburger,111,hořčice dijonská,,1,ČL,kg,"0,008","0,008",4
+7,dokonalý domácí hamburger,61,petržel hladkolistá,nasekaná,1,PL,kg,"0,003","0,003",4
+7,dokonalý domácí hamburger,111,hořčice dijonská,,1,ČL,kg,"0,006","0,006",4
 7,dokonalý domácí hamburger,105,worcesterská omáčka,,2,ČL,l,"0,005","0,01",4
 7,dokonalý domácí hamburger,69,vejce,,1,žloutek,ks,1,1,4
 7,dokonalý domácí hamburger,118,sůl,,1,ČL,kg,"0,005","0,005",4
 7,dokonalý domácí hamburger,11,pepř mletý,čerstvě mletý,2,špetka,kg,"0,001","0,002",4
-7,dokonalý domácí hamburger,23,olivový olej,,1,PL,l,"0,012","0,012",4
-7,dokonalý domácí hamburger,23,olivový olej,,1,PL,l,"0,012","0,012",4
+7,dokonalý domácí hamburger,23,olivový olej,,2,PL,l,"0,012","0,024",4
 7,dokonalý domácí hamburger,1,cibule,nakrájená nadrobno,1,ks,kg,"0,07","0,07",4
 7,dokonalý domácí hamburger,100,česnek,nakrájený nadrobno,2,stroužek,kg,"0,004","0,008",4
 7,dokonalý domácí hamburger,101,chilli sušené,,1,špetka,kg,"0,001","0,001",4
@@ -104,20 +103,20 @@ recept_id,recept_nazev,unikatni_id,ingredience_nazev,typ_zpracovani,mnozstvi,jed
 7,dokonalý domácí hamburger,103,třtinový cukr,,80,g,kg,"0,001","0,08",4
 7,dokonalý domácí hamburger,104,jablečný ocet,,2,PL,l,"0,015","0,03",4
 7,dokonalý domácí hamburger,105,worcesterská omáčka,,2,PL,l,"0,015","0,03",4
-7,dokonalý domácí hamburger,106,rajčatový protlak,,1,PL,kg,"0,02","0,02",4
+7,dokonalý domácí hamburger,106,rajčatový protlak,,1,PL,kg,"0,015","0,015",4
 7,dokonalý domácí hamburger,107,hamburgerová bulka,,4,ks,kg,"0,08","0,32",4
 7,dokonalý domácí hamburger,108,cheddar,,4,plátky,kg,"0,02","0,08",4
 7,dokonalý domácí hamburger,109,nakládané okurky,nakrájené na plátky,120,g,kg,"0,001","0,12",4
 7,dokonalý domácí hamburger,110,majonéza,,2,PL,l,"0,02","0,04",4
-7,dokonalý domácí hamburger,111,hořčice dijonská,,2,ČL,,"0,008","0,016",4
-7,dokonalý domácí hamburger,1,cibule,nakrájená na plátky,1,ks,kg,"0,07","0,07",4
+7,dokonalý domácí hamburger,111,hořčice dijonská,,2,ČL,,"0,006","0,012",4
 7,dokonalý domácí hamburger,113,hlávkový salát,,50,g,kg,"0,001","0,05",4
+7,dokonalý domácí hamburger,1,cibule,nakrájená na plátky,1,ks,kg,"0,07","0,07",4
 8,babiččina sekaná,114,mleté maso mix,,750,g,kg,"0,001","0,75",6
 8,babiččina sekaná,1,cibule,nakrájené najemno,2,ks,kg,"0,07","0,14",6
 8,babiččina sekaná,100,česnek,"prolisovaný, utřený",3,stroužek,kg,"0,004","0,012",6
 8,babiččina sekaná,117,vejce,,2,ks,ks,1,2,6
 8,babiččina sekaná,118,sůl,,2,ČL,kg,"0,005","0,01",6
-8,babiččina sekaná,119,majoránka drhnutá,drhnutá,2,ČL,kg,"0,003","0,006",6
+8,babiččina sekaná,119,majoránka drhnutá,drhnutá,2,ČL,kg,"0,001","0,002",6
 8,babiččina sekaná,120,strouhanka,,180,g,kg,"0,001","0,18",6
 8,babiččina sekaná,121,anglická slanina,plátky,14,plátky,kg,"0,02","0,28",6
 9,babiččina bábovka,117,vejce,,6,ks,ks,1,6,6
@@ -128,9 +127,9 @@ recept_id,recept_nazev,unikatni_id,ingredience_nazev,typ_zpracovani,mnozstvi,jed
 9,babiččina bábovka,123,mouka pšeničná hrubá,,450,g,kg,"0,001","0,45",6
 9,babiččina bábovka,124,kypřicí prášek do pečiva,,1,balení,kg,"0,012","0,012",6
 9,babiččina bábovka,125,kakao,,3,PL,kg,"0,008","0,024",6
-9,babiččina bábovka,126,moučkový cukr,,1,ČL,kg,"0,004","0,004",6
+9,babiččina bábovka,126,moučkový cukr,,1,ČL,kg,"0,003","0,003",6
 10,jednoduché palačinky,3,mouka pšeničná hladká,,220,g,kg,"0,001","0,22",4
 10,jednoduché palačinky,118,sůl,,1,špetka,kg,"0,001","0,001",4
 10,jednoduché palačinky,117,vejce,,2,ks,ks,1,2,4
 10,jednoduché palačinky,54,mléko,,500,ml,l,"0,001","0,5",4
-10,jednoduché palačinky,25,rostlinný olej,,1,PL,l,"0,015","0,015",4
+10,jednoduché palačinky,25,rostlinný olej,,1,PL,l,"0,012","0,012",4
